@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US"  >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>소금왕자의 솔티데이트</title>
+  <link rel='stylesheet' href='/style.css' type='text/css' media='all'/>
+  <link rel='stylesheet' href='/css/saveDate.css' type='text/css' media='all'/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
+<div id="page">
+  <div class="container">
+    <header id="masthead" class="site-header">
+      <div class="site-branding">
+        <h1 class="site-title"><a href="../" rel="home" style="font-family: Yoon">소금왕자의 솔티데이트</a></h1>
+      </div>
+      <nav id="site-navigation" class="main-navigation">
+        <button class="menu-toggle">Menu</button>
+        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+        <div class="menu-menu-1-container">
+          <ul id="menu-menu-1" class="menu" style="font-family: Yoon">
+            <li><a href="region">지역별</a></li>
+            <li><a href="season">계절별</a></li>
+            <li><a href="in_out">실내/야외</a></li>
+            <li><a href="age">연령별</a></li>
+            <li><a href="share">공유해요</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+
+    <div class="date-form" style="font-family: Yoon; padding: 5% 0%; font-size: large;">
+      <form action="/delete" method="post" name="deleteForm">
+<!--        <div class="container text-center">-->
+<!--          <div class="row g-2">-->
+<!--            <div class="col-md-8">-->
+<!--              <div class="p-1">-->
+                <div class="dating-form-text">
+                  <p><input type="text" style="width: 400px;" name="datingPassword" id="datingPassword" placeholder="비밀번호를 입력하세요"></p>
+                  <input type="hidden" name="deleteIdx" th:value="${datingDelete.datingIdx}">
+                  <input type="submit" value="글삭제">
+                </div>
+<!--              </div>-->
+<!--              <div class="date-form-text2"></div>-->
+<!--            </div>-->
+<!--            <div class="col-md-2">-->
+<!--              <div class="p-1">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="container text-center2">-->
+<!--          <div class="btn-submit">-->
+
+<!--          </div>-->
+<!--        </div>-->
+      </form>
+    </div>
+  </div>
+
+  <footer id="colophon" class="site-footer" style="width: 100%">
+    <div class="site-info">
+      <h1 style="font-family: Yoon;color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">Salty Date</h1>
+      <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">Contact us | aaa@aaaa.aaa</a>
+    </div>
+  </footer>
+  <a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+<script th:inline="javascript">
+
+  const dateDelete = () => {
+    const pass = [[${dateDelete.datePassword}]];
+    const inputPass = document.getElementById("datePassword").value;
+    if (pass == inputPass) {
+        document.deleteForm.submit();
+      // location.href = "/delete"
+      alert("수정이 완료되었습니다!");
+    } else {
+      alert("비밀번호가 일치하지 않습니다!");
+    }
+  }
+
+
+</script>
+
+
+</html>
+

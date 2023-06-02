@@ -1,0 +1,28 @@
+.date-form{
+    font-family: Yoon;
+    padding: 5% 0%;
+    font-size: large;
+}
+.dateTitle>input{
+    width: 800px;
+}
+.dateAddress>input{
+    width: 800px;
+}
+.date-form-text{
+    text-align: left;
+}
+.dateContent>textarea{
+    width: 800px;
+    height: 500px;
+}
+.upload-form-hashtag>input{
+    width: 600px;
+}
+.text-center2{
+    padding-top: 3%;
+    padding-left: 10%;
+}
+.btn-submit{
+    font-size: x-large;
+}

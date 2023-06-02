@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout layout:decorate="~{layouts/layout1}">
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+<div layout:fragment="content">
+    <div class="dating-form" style="width: 100%; height: 100%; text-align: center; font-family: Yoon">
+        <div class="detailWriter" style="font-size: medium; text-align: right; padding-right: 3%; font-family: Yoon;" th:text="*{#temporals.format(dating.datingCreatedTime, 'yyyy-MM-dd')}"></div>
+
+        <div class="row g-2" style="height: 100px; padding-top: 2%;" >
+            <div class="col-md-3">
+                <div class="dating-form-text" style="text-align: right; height: 50px; padding-left: 10%">
+                    <div class="detailTitle" style="font-size: xxx-large; font-family: Yoon;" th:text="${dating.datingTitle}"></div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="dating-form-text2" style="text-align: right; height: 50px;">
+                    <div class="detailWriter" style="font-size: x-large; font-family: Yoon;" th:text="${dating.datingWriter}"></div>
+                </div>
+            </div>
+
+        </div>
+        <img class="detailImg" style="width: 600px; height:600px; padding: 3%" th:each="filename: ${dating.storedFileName}" th:src="@{|/Users/koo/springboot_img/${filename}|}"/><br>
+        <div class="detailContent" style="font-size: x-large" th:text="${dating.datingContent}"></div><br>
+        <div class="detailAddress" style="font-size: x-large" th:text="${dating.datingAddress}"></div><br>
+    </div>
+    <div style="padding-top: 3%">
+        <div class="comment" style="border: solid; padding: 2%">
+            <!-- 댓글 작성 부분 -->
+
+            <div id="comment-write" style="padding-top: 1%; font-family: Yoon;">
+                <input type="text" style="font-size: large; padding-bottom: 1%" id="commentWriter" placeholder="작성자">
+                <input type="text" style="width: 60%; font-size: large; padding-bottom: 1%" id="commentContent" placeholder="내용">
+                <button id="comment-write-btn"style="font-size: medium" onclick="commentWrite()">댓글작성</button>
+            </div>
+
+            <!-- 댓글 출력 부분 -->
+            <div id="comment-list" style="padding-top: 1%; font-family: Yoon; font-size: large">
+                <table>
+                    <tr>
+                        <th>댓글번호</th>
+                        <th>작성자</th>
+                        <th>내용</th>
+                        <th>작성시간</th>
+                    </tr>
+                    <tr th:each="comment: ${commentList}">
+                        <td th:text="${comment.commentIdx}"></td>
+                        <td th:text="${comment.commentWriter}"></td>
+                        <td th:text="${comment.commentContent}"></td>
+                        <td th:text="*{#temporals.format(comment.commentCreatedTime, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-button" style="padding-top: 3%; text-align: left">
+        <p style="padding-top: 2%"><input type="password" style="width: 400px; font-family: Yoon; font-size: large" name="datingPassword" id="datingPassword" placeholder="게시글 수정/삭제 비밀번호를 입력하세요"></p>
+        <button style="font-family: Yoon; font-size: medium" onclick="listReq()">목록</button>
+        <button style="font-family: Yoon; font-size: medium" onclick="updateReq()">수정</button>
+        <button style="font-family: Yoon; font-size: medium" onclick="datingDelete()">삭제</button>
+    </div>
+
+    <script th:inline="javascript">
+        const commentWrite = () => {
+            const writer = document.getElementById("commentWriter").value;
+            const content = document.getElementById("commentContent").value;
+            console.log("작성자: ", writer);
+            console.log("내용: ", content);
+            const idx = [[${dating.datingIdx}]];
+            $.ajax({
+                // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+                type: "post",
+                url: "/comment/save",
+                data: {
+                    "commentWriter": writer,
+                    "commentContent": content,
+                    "datingIdx": idx
+                },
+                success: function (res) {
+                    console.log("요청성공", res);
+                    let output = "<table>";
+                    output += "<tr><th>댓글번호</th>";
+                    output += "<th>작성자</th>";
+                    output += "<th>내용</th>";
+                    output += "<th>작성시간</th></tr>";
+                    for (let i in res) {
+                        output += "<tr>";
+                        output += "<td>" + res[i].datingIdx + "</td>";
+                        output += "<td>" + res[i].commentWriter + "</td>";
+                        output += "<td>" + res[i].commentContent + "</td>";
+                        output += "<td>" + res[i].commentCreatedTime + "</td>";
+                        output += "</tr>";
+                    }
+                    output += "</table>";
+                    document.getElementById('comment-list').innerHTML = output;
+                    document.getElementById('commentWriter').value = '';
+                    document.getElementById('commentContent').value = '';
+                },
+                error: function (err) {
+                    console.log("요청실패", err);
+                }
+            });
+
+        }
+        const listReq = () => {
+            console.log("목록 요청");
+            location.href = "../";
+        }
+        const updateReq = () => {
+            console.log("수정 요청");
+            const idx = [[${dating.datingIdx}]];
+            const pass = [[${dating.datingPassword}]];
+            const inputPass = document.getElementById("datingPassword").value;
+            if (pass == inputPass) {
+                location.href = "/update/" + idx;
+                alert("수정화면으로 이동합니다!");
+            } else {
+                alert("비밀번호가 일치하지 않습니다!");
+            }
+
+        }
+
+        const datingDelete = () => {
+            const idx = [[${dating.datingIdx}]];
+            const pass = [[${dating.datingPassword}]];
+            const inputPass = document.getElementById("datingPassword").value;
+            if (pass == inputPass) {
+                location.href = "/delete/" + idx;
+                alert("삭제가 완료되었습니다!");
+            } else {
+                alert("비밀번호가 일치하지 않습니다!");
+            }
+        }
+    </script>
+</div>
+</html>
+
+
+
