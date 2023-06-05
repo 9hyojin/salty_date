@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/new")
+    @GetMapping("/members/new")
     public String memberForm(Model model){
         model.addAttribute("memberFormDto",new MemberFormDto());
         return "member/memberForm";
     }
 
-    @PostMapping("new")
+    @PostMapping("/members/new")
     public String memberForm(MemberFormDto memberFormDto){
         Member member = Member.createMember(memberFormDto,passwordEncoder);
         memberService.saveMember(member);
