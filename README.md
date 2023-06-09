@@ -1,7 +1,9 @@
 
 # salty_date 🐰
 a website that offers free dating spots
+
 높아진 물가에 짠테크가 유행인 요즘! 
+
 전국의 무료 데이트 장소를 공유할 수 있는 웹사이트입니다.
 
 # 개발환경 💻
