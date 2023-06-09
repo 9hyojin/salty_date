@@ -7,10 +7,11 @@
 }
 
 
-.date-form{
+.form{
     font-family: Yoon;
-    padding: 5% 0%;
+    padding-top: 5%;
     font-size: large;
+    text-align: center;
 }
 .dateTitle>input{
     width: 800px;
@@ -18,9 +19,9 @@
 .dateAddress>input{
     width: 800px;
 }
-.date-form-text{
-    text-align: left;
-}
+/*.date-form-text{*/
+/*    text-align: left;*/
+/*}*/
 .dateContent>textarea{
     width: 800px;
     height: 500px;
