@@ -17,11 +17,14 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+
+
     public Member saveMember(Member member){
         validateDuplicateMember(member);
         return memberRepository.save(member);
 
     }
+
 
     private void validateDuplicateMember(Member member){
         Member findMember = memberRepository.findByEmail(member.getEmail());
