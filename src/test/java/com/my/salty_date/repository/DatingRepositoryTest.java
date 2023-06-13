@@ -33,7 +33,7 @@ class DatingRepositoryTest {
         Dating dating = new Dating();
         dating.setDatingTitle("테스트 데이트");
         dating.setDatingWriter("테스트 데이트 글쓴이");
-        dating.setDatingPassword("테스트 데이트 비밀번호");
+//        dating.setDatingPassword("테스트 데이트 비밀번호");
         dating.setDatingAddress("테스트 데이트 주소");
         dating.setDatingContent("테스트 데이트 내용");
         dating.setDatingStatus(DatingStatus.OK);
@@ -46,7 +46,7 @@ class DatingRepositoryTest {
             Dating dating = new Dating();
             dating.setDatingTitle("데이트 제목"+i);
             dating.setDatingWriter("데이트 글쓴이" + i);
-            dating.setDatingPassword("데이트 비밀번호" + i);
+//            dating.setDatingPassword("데이트 비밀번호" + i);
             dating.setDatingAddress("데이트 주소" + i);
             dating.setDatingContent("데이트 내용" + i);
             dating.setDatingStatus(DatingStatus.OK);

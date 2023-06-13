@@ -52,5 +52,10 @@ public class   HomeController {
         return "saveDating";
     }
 
+    @GetMapping("/admin/page")
+    public String admin(){
+        return "admin";
+    }
+
 
 }
