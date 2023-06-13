@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-US" xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout layout:decorate="~{layouts/layout1}">
+<html lang="en-US" xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layouts/layout1}">
 
 
-<div layout:fragment="content"  class="form" >
-    <form action="/dating" method="post" enctype="multipart/form-data" >
+
+
+<div layout:fragment="content" class="form" sec:authoriza="isAuthenticated()">
+    <form action="/saveDating" method="post" enctype="multipart/form-data" >
         <div class="container text-center">
             <div class="dating-form-text">
                 <p class="datingTitle"><input style="width: 800px;" name="datingTitle" type="text" placeholder="데이트 제목을 입력해주세요!  ex) 책과 함께하는 서울광장"></p>
@@ -12,8 +14,8 @@
                 <p class="datingFile"><input type="file" multiple="multiple"  name="file" accept="image/*onchange=" onchange="setDetailImage(event);"></p>
                 <div class="imagesContainer" id="images_container"></div>
 
-                <p><input style="width: 400px;" name="datingWriter" type="text" placeholder="작성자이름을 입력하세요"></p>
-                <p><input style="width: 400px;" name="datingPassword" type="password" placeholder="비밀번호를 입력하세요"></p>
+<!--                <p><input style="width: 400px;" name="datingWriter" type="text" placeholder="작성자이름을 입력하세요"></p>-->
+<!--                <p><input style="width: 400px;" name="datingPassword" type="password" placeholder="비밀번호를 입력하세요"></p>-->
             </div>
         </div>
         <p style="text-align: center"><input type="submit" value="작성완료"></p>

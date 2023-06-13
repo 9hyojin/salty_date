@@ -17,32 +17,32 @@ public class   HomeController {
 
 
 
-    @GetMapping("/region")
+    @GetMapping("/dating/region")
     public String Region(Model model){
         List<DatingDto> datingDtoList = datingService.findAll();
         model.addAttribute("datingList", datingDtoList);
-        return "region";
+        return "/dating/region";
     }
 
-    @GetMapping("/season")
+    @GetMapping("/dating/season")
     public String Season(Model model){
         List<DatingDto> datingDtoList = datingService.findAll();
         model.addAttribute("datingList", datingDtoList);
-        return "season";
+        return "/dating/season";
     }
 
-    @GetMapping("/in_out")
+    @GetMapping("/dating/in_out")
     public String InOut(Model model){
         List<DatingDto> datingDtoList = datingService.findAll();
         model.addAttribute("datingList", datingDtoList);
-        return "in_out";
+        return "/dating/in_out";
     }
 
-    @GetMapping("/age")
+    @GetMapping("/dating/age")
     public String Age(Model model){
         List<DatingDto> datingDtoList = datingService.findAll();
         model.addAttribute("datingList", datingDtoList);
-        return "age";
+        return "/dating/age";
     }
 
     @GetMapping("/share")

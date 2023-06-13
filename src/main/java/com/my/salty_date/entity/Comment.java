@@ -20,6 +20,10 @@ public class Comment extends BaseEntity {
     @Column
     private String commentContent;
 
+
+
+
+
     /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dating_idx")

@@ -28,7 +28,7 @@ public class DatingController {
     }
 
 
-    @PostMapping("/dating")
+    @PostMapping("/saveDating")
     public String save(@ModelAttribute DatingDto datingDto) throws IOException{
         datingService.save(datingDto);
         return "redirect:/"; //작성해서 넘긴 데이터 찾아오기.
@@ -66,7 +66,7 @@ public class DatingController {
         return "redirect:/" + datingDto.getDatingIdx();
     }
 
-    @GetMapping("/delete/{datingIdx}")
+    @GetMapping("/admin/delete/{datingIdx}")
     public String delete(@PathVariable Long datingIdx) {
         datingService.delete(datingIdx);
         return "redirect:/";

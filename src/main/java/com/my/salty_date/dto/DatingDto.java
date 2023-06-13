@@ -27,7 +27,7 @@ public class DatingDto {
     private LocalDateTime datingCreatedTime;
     private LocalDateTime datingUpdatedTime;
     private String datingContent;
-    private String datingPassword;
+//    private String datingPassword;
 
 
     private List<MultipartFile> file;
@@ -60,7 +60,7 @@ public class DatingDto {
         datingDto.setDatingTitle(dating.getDatingTitle());
         datingDto.setDatingAddress(dating.getDatingAddress());
         datingDto.setDatingContent(dating.getDatingContent());
-        datingDto.setDatingPassword(dating.getDatingPassword());
+//        datingDto.setDatingPassword(dating.getDatingPassword());
         datingDto.setDatingCreatedTime(dating.getCreatedTime());
         datingDto.setDatingUpdatedTime(dating.getUpdatedTime());
 

@@ -30,8 +30,8 @@ public class Dating extends BaseEntity {
     @Column
     private String datingContent;
 
-    @Column
-    private String datingPassword;
+//    @Column
+//    private String datingPassword;
 
     @Enumerated(EnumType.STRING)
     private DatingStatus datingStatus;
@@ -52,7 +52,7 @@ public class Dating extends BaseEntity {
         dating.setDatingTitle(datingDto.getDatingTitle());
         dating.setDatingAddress(datingDto.getDatingAddress());
         dating.setDatingContent(datingDto.getDatingContent());
-        dating.setDatingPassword(datingDto.getDatingPassword());
+//        dating.setDatingPassword(datingDto.getDatingPassword());
         return dating;
     }
 
@@ -62,7 +62,7 @@ public class Dating extends BaseEntity {
         dating.setDatingTitle(datingDto.getDatingTitle());
         dating.setDatingAddress(datingDto.getDatingAddress());
         dating.setDatingContent(datingDto.getDatingContent());
-        dating.setDatingPassword(datingDto.getDatingPassword());
+//        dating.setDatingPassword(datingDto.getDatingPassword());
         return dating;
     }
 
