@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter @Setter
-public class MemberFormDto {
+public class MemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
     private String name;
@@ -20,3 +20,5 @@ public class MemberFormDto {
     private String password;
 
 }
+
+

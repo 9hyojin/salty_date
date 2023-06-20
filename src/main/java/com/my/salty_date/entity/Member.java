@@ -1,17 +1,22 @@
 package com.my.salty_date.entity;
 
 import com.my.salty_date.constant.Role;
-import com.my.salty_date.dto.MemberFormDto;
+import com.my.salty_date.dto.MemberRequest;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collection;
+import java.util.List;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Setter
 @Entity
-@Getter @Setter
-@ToString
-public class Member {
+public class Member implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +31,54 @@ public class Member {
     @Column
     private String password;
 
+    @Column(length = 1000)
+    private String refreshToken;//RefreshToken
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
 
-    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
+    @Builder
+    public Member(String email, String password,String name, String auth){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+
+    }
+
+
+    @Override //권한반환
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return List.of(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+
+    public static Member createMember(MemberRequest memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
@@ -40,5 +88,12 @@ public class Member {
 
         return member;
     }
+
+//    public void updateRefreshToken(String refreshToken){
+//        this.refreshToken = refreshToken;
+//    }
+//    public void destroyRefreshToken(){
+//        this.refreshToken = null;
+//    }
 
 }

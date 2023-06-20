@@ -1,0 +1,121 @@
+package com.my.salty_date.config.jwt;
+
+import com.my.salty_date.entity.Member;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+
+import java.security.Key;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Set;
+
+//@RequiredArgsConstructor
+@Service
+public class TokenProvider {
+
+    private final JwtProperties jwtProperties;
+    private final Key key;
+
+    @Autowired
+    public TokenProvider(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+        byte[] keyBytes = jwtProperties.getSecret().getBytes();
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
+
+
+
+    public String generateToken(Member member, Duration expiredAt){
+        Date now = new Date();
+        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), member);
+    }
+
+
+
+    //JWT 생성 메서드
+    private String makeToken(Date expiry, Member member ) {
+        Date now = new Date();
+
+        return Jwts.builder()
+                .setIssuer(jwtProperties.getIssuer())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .setSubject(member.getEmail())
+                .claim("idx",member.getMemIdx())
+                .signWith(key)
+                .compact();
+    }
+
+
+    //JWT 유효성 검증 메서드
+    public boolean validToken(String token){
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+    //토큰기반 인증 정보를 가져오는 메소드
+    public Authentication getAuthentication(String token){
+        Claims claims = getClaims(token);
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+        return new UsernamePasswordAuthenticationToken(new org.springframework.
+                security.core.userdetails.User(claims.getSubject(),"",authorities),token,authorities);
+    }
+
+
+    //토큰기반 유저ID 가져오는 메서드
+    public Long getUserId(String token){
+        Claims claims = getClaims(token);
+        return claims.get("idx", Long.class);
+    }
+
+
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+}
+
+
+
+
+
+
+//유튜브버전
+//    public static String makeToken(Member member, String secretKey, Long expiredMs) {
+//
+//        Claims claims = Jwts.claims();
+//        claims.put("memberName", member.getName());
+//        byte[] keyBytes = secretKey.getBytes();
+//        Key key = Keys.hmacShaKeyFor(keyBytes);
+//
+//        return Jwts.builder()
+//                .setClaims(claims)
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
+//                .signWith(key)
+//                .compact();
+//    }
+
+

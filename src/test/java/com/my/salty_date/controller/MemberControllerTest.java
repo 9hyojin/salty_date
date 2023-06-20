@@ -1,6 +1,6 @@
 package com.my.salty_date.controller;
 
-import com.my.salty_date.dto.MemberFormDto;
+import com.my.salty_date.dto.MemberRequest;
 import com.my.salty_date.entity.Member;
 import com.my.salty_date.service.MemberService;
 import jakarta.transaction.Transactional;
@@ -33,7 +33,7 @@ class MemberControllerTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember(String email, String password){
-        MemberFormDto memberFormDto = new MemberFormDto();
+        MemberRequest memberFormDto = new MemberRequest();
         memberFormDto.setEmail(email);
         memberFormDto.setName("홍길동");
         memberFormDto.setPassword(password);

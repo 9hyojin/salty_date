@@ -1,6 +1,6 @@
 package com.my.salty_date.service;
 
-import com.my.salty_date.dto.MemberFormDto;
+import com.my.salty_date.dto.MemberRequest;
 import com.my.salty_date.entity.Member;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ class MemberServiceTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember(){
-        MemberFormDto memberFormDto = new MemberFormDto();
+        MemberRequest memberFormDto = new MemberRequest();
         memberFormDto.setEmail("test@email.com");
         memberFormDto.setName("홍길동");
         memberFormDto.setPassword("123456789");

@@ -1,12 +1,13 @@
 package com.my.salty_date.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Entity
+@NoArgsConstructor
 @Getter
-@Setter
+@Entity
 public class File extends BaseEntity {
 
     @Id
@@ -28,6 +29,26 @@ public class File extends BaseEntity {
     @JoinColumn(name = "dating_idx")
     private Dating dating;
 
+
+    @Builder
+    public File(Dating dating, String originalFileName, String storedFileName) {
+        this.originalFileName = originalFileName;
+        this.storedFileName = storedFileName;
+        this.dating = dating;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //    public static FileEntity toFileEntity(DateEntity dateEntity, String originalFileName, String storedFileName, String mainImg){
 //        FileEntity fileEntity = new FileEntity();
 //        fileEntity.setOriginalFileName(originalFileName);
@@ -38,12 +59,11 @@ public class File extends BaseEntity {
 //    }
 //
 
-    public static File toFile(Dating dating, String originalFileName, String storedFileName){
-        File file = new File();
-        file.setOriginalFileName(originalFileName);
-        file.setStoredFileName(storedFileName);
-        file.setDating(dating);
-        return file;
-    }
+//    public static File toFile(Dating dating, String originalFileName, String storedFileName){
+//        File file = new File();
+//        file.setOriginalFileName(originalFileName);
+//        file.setStoredFileName(storedFileName);
+//        file.setDating(dating);
+//        return file;
+//    }
 
-}
