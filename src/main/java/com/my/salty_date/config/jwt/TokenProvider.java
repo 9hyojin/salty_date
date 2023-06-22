@@ -2,6 +2,7 @@ package com.my.salty_date.config.jwt;
 
 import com.my.salty_date.entity.Member;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -46,11 +47,12 @@ public class TokenProvider {
         Date now = new Date();
 
         return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .setSubject(member.getEmail())
-                .claim("idx",member.getMemIdx())
+                .claim("memIdx",member.getMemIdx())
                 .signWith(key)
                 .compact();
     }
@@ -83,7 +85,7 @@ public class TokenProvider {
     //토큰기반 유저ID 가져오는 메서드
     public Long getUserId(String token){
         Claims claims = getClaims(token);
-        return claims.get("idx", Long.class);
+        return claims.get("memIdx", Long.class);
     }
 
 

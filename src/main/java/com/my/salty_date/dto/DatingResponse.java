@@ -18,7 +18,7 @@ public class DatingResponse {
     private final LocalDateTime datingCreatedTime;
     private final LocalDateTime datingUpdatedTime;
 
-//    private final List<File> file;
+    private final List<File> file;
 
     private final List<String> originalFileName;
 
@@ -31,6 +31,7 @@ public class DatingResponse {
         this.datingContent = dating.getDatingContent();
         this.datingCreatedTime = dating.getDatingCreatedTime();
         this.datingUpdatedTime = dating.getDatingUpdatedTime();
+        this.file = dating.getFileList();
         List<String> orginalFileNameList = new ArrayList<>();
         List<String> storedFileNameList = new ArrayList<>();
         for (File file : dating.getFileList()) {

@@ -12,7 +12,7 @@
                     <li><a href="/dating/season" style="color: black" >계절별</a></li>
                     <li><a href="/dating/in_out" style="color: black">실내/야외</a></li>
                     <li><a href="/dating/age" style="color: black">연령별</a></li>
-                    <li sec:authorize="isAuthenticated()"><a href="/save/datingForm" style="color: black">공유해요</a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/save/dating" style="color: black">공유해요</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/members/login" style="color: black; font-size: medium">login</a> </li>
                     <li sec:authorize="isAuthenticated()"><a href="/members/logout" style="color: black; font-size: medium">logout</a> </li>
                     <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a href="/admin/page" style="color: black; font-size: medium">관리자페이지</a> </li>

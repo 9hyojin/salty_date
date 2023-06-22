@@ -1,15 +1,13 @@
 package com.my.salty_date.controller;
 
-import com.my.salty_date.dto.CommentDto;
-import com.my.salty_date.dto.DatingRequest;
-import com.my.salty_date.dto.DatingResponse;
-import com.my.salty_date.dto.UpdateDatingRequest;
+import com.my.salty_date.dto.*;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class DatingController {
 
     private final DatingService datingService;
@@ -25,53 +23,62 @@ public class DatingController {
     private final CommentService commentService;
 
 
-    @GetMapping("/api/saveDating")
+    @GetMapping("/")
+    public String findAll(Model model) {
+        List<DatingResponse> datingList = datingService.findAll()
+                .stream()
+                .map(DatingResponse::new)
+                .toList();
+        model.addAttribute("datingList", datingList);
+        return "index";
+    }
+
+    @GetMapping("/save/dating")
     public String saveDating() {
         return "saveDating";
     }
 
-
-    @PostMapping("/api/saveDating")
-    public ResponseEntity<Dating> save(@RequestBody DatingRequest request) throws IOException {
-        Dating savedDating = datingService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedDating);
-
+    @PostMapping("/save/dating")
+    public String save(@ModelAttribute DatingRequest request) throws IOException {
+        datingService.save(request);
+        return "redirect:/";
     }
 
-
-    @GetMapping("/api/dating")
-    public ResponseEntity<List<DatingResponse>> findAll() {
-        List<DatingResponse> datings = datingService.findAll()
-                .stream()
-                .map(DatingResponse::new)
-                .toList();
-        return ResponseEntity.ok().body(datings);
-
-    }
-
-
-    @GetMapping("/api/dating/{datingIdx}")
-    public ResponseEntity<DatingResponse> findById(@PathVariable Long datingIdx) {
+    @GetMapping("/dating/{datingIdx}")
+    public String findById(@PathVariable Long datingIdx, Model model) {
         Dating dating = datingService.findById(datingIdx);
-//        List<CommentDto> commentDtoList = commentService.findAll(datingIdx);
-        return ResponseEntity.ok().body(new DatingResponse(dating));
+        List<CommentDto> commentDtoList = commentService.findAll(datingIdx);
+        model.addAttribute("dating", new DatingResponse(dating));
+        model.addAttribute("commentList", commentDtoList);
+        return "detailPage";
     }
 
-
-    @PutMapping("/api/dating/{datingIdx}")
-    public ResponseEntity<Dating> updateForm(@PathVariable Long datingIdx,
-                                             @RequestBody UpdateDatingRequest request) {
+    @PutMapping("/dating/{datingIdx}")
+    public String updateForm(@PathVariable Long datingIdx, @ModelAttribute UpdateDatingRequest request, Model model) {
         Dating updatedDating = datingService.update(datingIdx, request);
-
-        return ResponseEntity.ok().body(updatedDating);
-
+        model.addAttribute("updatedDating",updatedDating);
+        return "redirect:/" + datingIdx;
     }
 
-    @DeleteMapping("/api/dating/{datingIdx}")
-    public ResponseEntity<Void> delete(@PathVariable Long datingIdx) {
+    @DeleteMapping("/admin/dating/{datingIdx}")
+    public String delete(@PathVariable Long datingIdx) {
         datingService.delete(datingIdx);
-        return ResponseEntity.ok().build();
+        return "redirect:/";
     }
+
+
+
+
+//    @GetMapping("/dating/{datingIdx}")
+//    public String findById(@PathVariable Long datingIdx, Model model) {
+//        Dating dating = datingService.findById(datingIdx);
+//        List<CommentDto> commentDtoList = commentService.findAll(datingIdx);
+//        model.addAttribute("dating", new DatingViewResponse(dating));
+//        model.addAttribute("commentList", commentDtoList);
+//        return "detailPage";
+//    }
+
+
 }
 
 

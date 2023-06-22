@@ -12,10 +12,10 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+    @Column(name = "token_idx", updatable = false)
+    private Long tokenIdx;
 
-    @Column(name = "user_id", nullable = false, unique = true)
+    @Column(name = "mem_idx", nullable = false, unique = true)
     private Long memIdx;
 
     @Column(name = "refresh_token", nullable = false)

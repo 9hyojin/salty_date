@@ -19,41 +19,41 @@ public class   HomeController {
 
     @GetMapping("/dating/region")
     public String Region(Model model){
-        List<DatingResponse> datings = datingService.findAll()
+        List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
                 .toList();
-        model.addAttribute("datingList", datings);
+        model.addAttribute("datingList", datingList);
         return "/dating/region";
     }
 
     @GetMapping("/dating/season")
     public String Season(Model model){
-        List<DatingResponse> datings = datingService.findAll()
+        List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
                 .toList();
-        model.addAttribute("datingList", datings);
+        model.addAttribute("datingList", datingList);
         return "/dating/season";
     }
 
     @GetMapping("/dating/in_out")
     public String InOut(Model model){
-        List<DatingResponse> datings = datingService.findAll()
+        List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
                 .toList();
-        model.addAttribute("datingList", datings);
+        model.addAttribute("datingList", datingList);
         return "/dating/in_out";
     }
 
     @GetMapping("/dating/age")
     public String Age(Model model){
-        List<DatingResponse> datings = datingService.findAll()
+        List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
                 .toList();
-        model.addAttribute("datingList", datings);
+        model.addAttribute("datingList", datingList);
         return "/dating/age";
     }
 

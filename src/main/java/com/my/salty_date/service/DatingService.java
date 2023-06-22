@@ -25,27 +25,29 @@ public class DatingService {
     private final FileRepository fileRepository;
 
 
-    public Dating save(DatingRequest request) throws IOException {
-//        Dating dating = datingDto.toDatingEntity(); // dto -> entity
-        Long saveId = datingRepository.save(request.toDatingEntity()).getDatingIdx(); //  getId 하는 이유: 자식테이블에서는 부모의 PK가 필요함. (Long타입 아닌 DateEntity타입)
-        Dating dating = datingRepository.findById(saveId).get();//부모 엔티티를 db에서 가져옴
+    @Transactional
+    public void save(DatingRequest request) throws IOException {
+        Dating dating = request.toDatingEntity(); // dto -> entity
+        Long saveId = datingRepository.save(dating).getDatingIdx(); //  getId 하는 이유: 자식테이블에서는 부모의 PK가 필요함. (Long타입 아닌 DateEntity타입)
+        Dating dating1 = datingRepository.findById(saveId).get();//부모 엔티티를 db에서 가져옴
         for (MultipartFile files : request.getFile()) {
             String originalFilename = files.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
             String savePath = "/Users/koo/springboot_img/" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
             files.transferTo(new java.io.File(savePath)); // 5.
-            File file = new File(dating,originalFilename,storedFileName);
+            File file = new File(dating1,originalFilename,storedFileName);
             fileRepository.save(file);
         }
-        return dating;
     }
 
 
-    public List<Dating>findAll(){
+    @Transactional
+    public List<Dating> findAll(){
         return datingRepository.findAll();
     }
 
 
+    @Transactional
     public Dating findById(Long dateIdx){
         return datingRepository.findById(dateIdx)
                 .orElseThrow(()->new IllegalArgumentException("not found: "+ dateIdx));

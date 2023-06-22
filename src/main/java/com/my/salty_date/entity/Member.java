@@ -20,15 +20,16 @@ public class Member implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "memIdx", updatable = false)
     private Long memIdx;
 
-    @Column
+    @Column(name = "name" , nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(length = 1000)
@@ -54,40 +55,40 @@ public class Member implements UserDetails{
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 
-    public static Member createMember(MemberRequest memberFormDto, PasswordEncoder passwordEncoder){
-        Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        String password = passwordEncoder.encode(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(Role.USER);
-
-        return member;
-    }
+//    public static Member createMember(MemberRequest memberFormDto, PasswordEncoder passwordEncoder){
+//        Member member = new Member();
+//        member.setName(memberFormDto.getName());
+//        member.setEmail(memberFormDto.getEmail());
+//        String password = passwordEncoder.encode(memberFormDto.getPassword());
+//        member.setPassword(password);
+//        member.setRole(Role.USER);
+//
+//        return member;
+//    }
 
 //    public void updateRefreshToken(String refreshToken){
 //        this.refreshToken = refreshToken;

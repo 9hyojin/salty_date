@@ -12,11 +12,6 @@
                     <div class="detailTitle" style="font-size: xxx-large; font-family: Yoon;" th:text="${dating.datingTitle}"></div>
                 </div>
             </div>
-<!--            <div class="col-md-7">-->
-<!--                <div class="dating-form-text2" style="text-align: right; height: 50px;">-->
-<!--                    <div class="detailWriter" style="font-size: x-large; font-family: Yoon;" th:text="${dating.datingWriter}"></div>-->
-<!--                </div>-->
-<!--            </div>-->
 
         </div>
         <img class="detailImg" style="width: 600px; height:600px; padding: 3%" th:each="filename: ${dating.storedFileName}" th:src="@{|/Users/koo/springboot_img/${filename}|}"/><br>
@@ -55,7 +50,6 @@
     </div>
 
     <div class="submit-button" style="padding-top: 3%; text-align: left">
-<!--        <p style="padding-top: 2%"><input type="password" style="width: 400px; font-family: Yoon; font-size: large" name="datingPassword" id="datingPassword" placeholder="게시글 수정/삭제 비밀번호를 입력하세요"></p>-->
         <button style="font-family: Yoon; font-size: medium" onclick="listReq()">목록</button>
         <button style="font-family: Yoon; font-size: medium" onclick="updateReq()" >수정</button>
         <button type="button" id="delete-btn" style="font-family: Yoon; font-size: medium">삭제</button>
@@ -112,17 +106,8 @@
         const updateReq = () => {
             console.log("수정 요청");
             const idx = [[${dating.datingIdx}]];
-            // const pass = [[${dating.datingPassword}]];
-            // const inputPass = document.getElementById("datingPassword").value;
             location.href = "/update/" +idx;
             alert("수정화면으로 이동합니다!");
-
-            // if (pass == inputPass) {
-            //     location.href = "/update/" + idx;
-            //     alert("수정화면으로 이동합니다!");
-            // } else {
-            //     alert("비밀번호가 일치하지 않습니다!");
-            // }
         }
 
         const deleteButton = document.getElementById('delete-btn');
@@ -133,30 +118,9 @@
             })
         }
 
-
-
-
     </script>
 </div>
 </html>
 
 
-
-
-
-// const datingDelete = () => {
-//     const idx = [[${dating.datingIdx}]];
-//     // const pass = [[${dating.datingPassword}]];
-//     // const inputPass = document.getElementById("datingPassword").value;
-//     location.href = "/admin/delete/" +idx;
-//     // alert("삭제가 완료되었습니다!");
-//
-//
-//
-//     // if (pass == inputPass) {
-//     //     location.href = "/delete/" + idx;
-//     //     alert("삭제가 완료되었습니다!");
-//     // } else {
-//     //     alert("비밀번호가 일치하지 않습니다!");
-//     // }
 

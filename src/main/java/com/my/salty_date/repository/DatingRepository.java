@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DatingRepository extends JpaRepository<Dating,Long> ,DatingRepositoryCustom {
-    List<Dating> findTopByOrderByDatingIdxDesc();
+    List<Dating> findByDatingIdx(Long dateIdx);
     List<Dating> findByDatingTitle(String datingTitle);
-//    List<Dating> findByDatingTitleOrDatingWriter (String datingTitle, String datingWriter);
 }
