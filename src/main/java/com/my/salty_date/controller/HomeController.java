@@ -17,7 +17,7 @@ public class   HomeController {
 
 
 
-    @GetMapping("/dating/region")
+    @GetMapping("/region")
     public String Region(Model model){
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
@@ -27,7 +27,7 @@ public class   HomeController {
         return "/dating/region";
     }
 
-    @GetMapping("/dating/season")
+    @GetMapping("/season")
     public String Season(Model model){
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
@@ -37,7 +37,7 @@ public class   HomeController {
         return "/dating/season";
     }
 
-    @GetMapping("/dating/in_out")
+    @GetMapping("/in_out")
     public String InOut(Model model){
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
@@ -47,7 +47,7 @@ public class   HomeController {
         return "/dating/in_out";
     }
 
-    @GetMapping("/dating/age")
+    @GetMapping("/age")
     public String Age(Model model){
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
