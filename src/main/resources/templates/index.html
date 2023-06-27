@@ -3,8 +3,8 @@
 
 
 <div layout:fragment="content" class="card-group">
-	<div th:each="item : ${datingList}" style="padding:1%">
-		<div class="card" style="width: 300px; height: 300px;">
+	<div th:each="item : ${datingList}" class="card-frame">
+		<div class="card">
 			<div class="card-body" style="text-align: center; padding-bottom: 10px;">
 				<div style="font-size: small; padding-bottom: 5px; font-family: Yoon; text-align: right" th:text="*{#temporals.format(item.datingCreatedTime, 'yyyy-MM-dd')}"></div>
 				<img class="card-img-top" style="width: 250px; height: 200px;" th:src="@{|/Users/koo/springboot_img/${item.storedFileName[0]}|}"/><br>

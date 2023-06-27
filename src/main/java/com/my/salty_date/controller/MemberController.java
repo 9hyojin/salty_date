@@ -1,25 +1,25 @@
 package com.my.salty_date.controller;
 
 import com.my.salty_date.dto.MemberRequest;
+import com.my.salty_date.entity.Member;
 import com.my.salty_date.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 @RequestMapping("/members")
 @RequiredArgsConstructor
 @Controller
-
 public class MemberController {
 
     private final MemberService memberService;
@@ -30,25 +30,30 @@ public class MemberController {
         return "/member/memberLoginForm";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/signUp")
     public String memberForm(Model model){
-        model.addAttribute("MemberRequest", new MemberRequest());
+        model.addAttribute("MemberRequest", MemberRequest.builder().build());
         return "member/memberForm";
     }
 
     @PostMapping("/signUp")
-    public String signUp(@Valid MemberRequest request, BindingResult bindingResult, Model model){
-            if(bindingResult.hasErrors()){
+    public String signUp(@Valid @ModelAttribute("MemberRequest") MemberRequest memberRequest, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
             return "member/memberForm";
         }
         try {
-            memberService.save(request);
+            memberService.save(memberRequest);
         }catch (IllegalStateException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "member/memberForm";
         }
         return "redirect:/members/login";
     }
+
+//    @GetMapping("/signUp/{email}/exists")
+//    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email){
+//        return ResponseEntity.ok(memberService.checkEmailDuplication(email));
+//    }
 
     @GetMapping("/login/error")
     public String loginError(Model model){

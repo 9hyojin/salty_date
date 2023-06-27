@@ -4,6 +4,7 @@ import com.my.salty_date.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
@@ -19,19 +20,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class TokenProvider {
 
     private final JwtProperties jwtProperties;
-    private final Key key;
 
-    @Autowired
-    public TokenProvider(JwtProperties jwtProperties) {
-        this.jwtProperties = jwtProperties;
-        byte[] keyBytes = jwtProperties.getSecret().getBytes();
-        this.key = Keys.hmacShaKeyFor(keyBytes);
-    }
 
 
 
@@ -45,7 +39,7 @@ public class TokenProvider {
     //JWT 생성 메서드
     private String makeToken(Date expiry, Member member ) {
         Date now = new Date();
-
+        Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
@@ -53,20 +47,22 @@ public class TokenProvider {
                 .setExpiration(expiry)
                 .setSubject(member.getEmail())
                 .claim("memIdx",member.getMemIdx())
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
 
     //JWT 유효성 검증 메서드
     public boolean validToken(String token){
+        Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
+
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(key)   //비밀값으로 복호화
                     .build()
                     .parseClaimsJws(token);
             return true;
-        }catch (Exception e){
+        }catch (Exception e){     //복호화과정에서 에러가 나면 유효하지않은 토큰
             return false;
         }
     }
@@ -90,6 +86,8 @@ public class TokenProvider {
 
 
     private Claims getClaims(String token) {
+        Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

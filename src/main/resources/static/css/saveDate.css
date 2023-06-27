@@ -40,3 +40,16 @@
 .btn-submit{
     font-size: x-large;
 }
+.fieldError{
+    color: #bd2130;
+    padding-left: 30%;
+}
+.error{
+    color: royalblue;
+}
+.card{
+    width: 300px; height: 300px;
+}
+.card-frame{
+    padding: 0.8%;
+}

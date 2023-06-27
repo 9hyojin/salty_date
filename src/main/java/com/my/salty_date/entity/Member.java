@@ -32,9 +32,6 @@ public class Member implements UserDetails{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(length = 1000)
-    private String refreshToken;//RefreshToken
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -44,6 +41,7 @@ public class Member implements UserDetails{
         this.email = email;
         this.password = password;
         this.name = name;
+        this.role = Role.USER;
 
     }
 
