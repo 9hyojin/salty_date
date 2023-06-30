@@ -20,7 +20,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final static String TOKEN_PREFIX = "Bearer ";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response
+            ,FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         String token = getAccessToken(authorizationHeader);
@@ -44,18 +45,3 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
 
-
-
-//        //MemberName 토큰에서 꺼내기
-//        String memberName = "";
-//
-//        //권한부여
-//        UsernamePasswordAuthenticationToken authenticationToken =
-//                new UsernamePasswordAuthenticationToken(memberName,null, List.of(new SimpleGrantedAuthority("USER")));
-//
-//        //Detail
-//        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-//        filterChain.doFilter(request,response);
-//
-//    }
