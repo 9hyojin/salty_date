@@ -4,6 +4,7 @@ import com.my.salty_date.entity.Member;
 import com.my.salty_date.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -14,7 +15,7 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public Member loadUserByUsername(String email){
-        return memberRepository.findByEmail(email).orElseThrow(()->new IllegalArgumentException(email));
+        return memberRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException(email));
 
     }
 

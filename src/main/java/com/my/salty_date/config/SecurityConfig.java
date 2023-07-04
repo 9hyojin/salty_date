@@ -5,33 +5,27 @@ package com.my.salty_date.config;
 import com.my.salty_date.service.MemberService;
 import com.my.salty_date.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toStaticResources;
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -41,7 +35,9 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class SecurityConfig {
 
     private final MemberService memberService;
+    private final UserDetailService userDetailService;
     private final CustomAuthDetails customAuthDetails;
+    private final DataSource dataSource;
 
 
 //    @Bean
@@ -52,11 +48,39 @@ public class SecurityConfig {
 
 
     @Bean
+    SessionRegistry sessionRegistry(){
+        SessionRegistryImpl registry = new SessionRegistryImpl();
+        return  registry;
+    }
+
+
+    @Bean
+    PersistentTokenRepository tokenRepository(){
+        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
+        repository.setDataSource(dataSource);
+        try {
+            repository.removeUserTokens("1");
+        }catch (Exception e){
+            repository.setCreateTableOnStartup(true);
+        }
+        return repository;
+    }
+
+    @Bean
+    PersistentTokenBasedRememberMeServices rememberMeServices(){
+        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices(
+                "hello",userDetailService,tokenRepository());
+        service.setAlwaysRemember(true);  //테스트시 로그인기억하기 매번 누르기 번거로울때 사용
+        return service;
+    }
+
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
                 .requestMatchers("/dating/**").authenticated()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**","/session/**","/sessions/**").hasRole("ADMIN")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 //                .requestMatchers("/css/**","/js/**","/img/**","/fonts/**").permitAll()
                 .anyRequest().permitAll()
@@ -75,6 +99,19 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .and()
+
+                .rememberMe(
+                        r->r
+                                .rememberMeServices(rememberMeServices())
+                )
+
+                .sessionManagement(
+                        s->s
+                                .maximumSessions(1)  //동시접속 불가. 맥시멈 세션 1개
+                                .maxSessionsPreventsLogin(false)  // 나중에 들어온 세션을 유지, 기존세션 만료처리
+                                .expiredUrl("/")
+                )
+
 //                .exceptionHandling()      //admin페이지 user 접근금지
 //                .accessDeniedPage("")
 //                .and()

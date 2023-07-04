@@ -37,7 +37,7 @@ public class Member implements UserDetails{
 
 
     @Builder
-    public Member(String email, String password,String name, String auth){
+    public Member(String email, String password,String name){
         this.email = email;
         this.password = password;
         this.name = name;
@@ -77,22 +77,5 @@ public class Member implements UserDetails{
     }
 
 
-//    public static Member createMember(MemberRequest memberFormDto, PasswordEncoder passwordEncoder){
-//        Member member = new Member();
-//        member.setName(memberFormDto.getName());
-//        member.setEmail(memberFormDto.getEmail());
-//        String password = passwordEncoder.encode(memberFormDto.getPassword());
-//        member.setPassword(password);
-//        member.setRole(Role.USER);
-//
-//        return member;
-//    }
-
-//    public void updateRefreshToken(String refreshToken){
-//        this.refreshToken = refreshToken;
-//    }
-//    public void destroyRefreshToken(){
-//        this.refreshToken = null;
-//    }
 
 }
