@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Dating {
+public class Dating extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,21 +39,21 @@ public class Dating {
     @Enumerated(EnumType.STRING)
     private DatingStatus datingStatus;
 
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime datingCreatedTime;
-
-    @LastModifiedDate
-    @Column(name = "update_at")
-    private LocalDateTime datingUpdatedTime;
+//    @CreatedDate
+//    @Column(name = "created_at")
+//    private LocalDateTime datingCreatedTime;
+//
+//    @LastModifiedDate
+//    @Column(name = "update_at")
+//    private LocalDateTime datingUpdatedTime;
 
 
     @Builder
-    public Dating(String datingTitle, String datingAddress, String datingContent, LocalDateTime datingCreatedTime) {
+    public Dating(String datingTitle, String datingAddress, String datingContent, LocalDateTime createdTime) {
         this.datingTitle = datingTitle;
         this.datingAddress = datingAddress;
         this.datingContent = datingContent;
-        this.datingCreatedTime = datingCreatedTime;
+        this.createdTime = createdTime;
     }
 
 

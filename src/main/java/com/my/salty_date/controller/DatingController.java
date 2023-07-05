@@ -4,9 +4,12 @@ import com.my.salty_date.dto.*;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
+import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +22,8 @@ import java.util.List;
 public class DatingController {
 
     private final DatingService datingService;
-
     private final CommentService commentService;
+    private final PaginationService paginationService;
 
 
     @GetMapping("/")
@@ -32,6 +35,19 @@ public class DatingController {
         model.addAttribute("datingList", datingList);
         return "index";
     }
+
+
+
+
+//    @GetMapping("/")
+//    public String findAll(Model model) {
+//        List<DatingResponse> datingList = datingService.findAll()
+//                .stream()
+//                .map(DatingResponse::new)
+//                .toList();
+//        model.addAttribute("datingList", datingList);
+//        return "index";
+//    }
 
     @GetMapping("/save/dating")
     public String saveDating() {

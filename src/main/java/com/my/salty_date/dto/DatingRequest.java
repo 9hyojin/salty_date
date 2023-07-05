@@ -1,6 +1,7 @@
 package com.my.salty_date.dto;
 
 
+import com.my.salty_date.entity.BaseEntity;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.entity.File;
 import lombok.*;
@@ -21,8 +22,8 @@ public class DatingRequest {
 
     private String datingContent;
 
-    private LocalDateTime datingCreatedTime;
-    private LocalDateTime datingUpdatedTime;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
 
     private List<MultipartFile> file;
 
@@ -36,7 +37,7 @@ public class DatingRequest {
                 .datingTitle(datingTitle)
                 .datingAddress(datingAddress)
                 .datingContent(datingContent)
-//                .datingCreatedTime(datingCreatedTime)
+                .createdTime(createdTime)
                 .build();
     }
 
