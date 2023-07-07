@@ -6,16 +6,13 @@ import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
 import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,7 +28,7 @@ public class DatingController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "index";
     }
@@ -76,7 +73,7 @@ public class DatingController {
         return "redirect:/" + datingIdx;
     }
 
-    @DeleteMapping("/admin/dating/{datingIdx}")
+    @GetMapping("/delete/{datingIdx}")
     public String delete(@PathVariable Long datingIdx) {
         datingService.delete(datingIdx);
         return "redirect:/";

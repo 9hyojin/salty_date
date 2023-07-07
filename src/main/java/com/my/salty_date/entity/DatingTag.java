@@ -1,6 +1,6 @@
 package com.my.salty_date.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class DatingTag {

@@ -3,9 +3,9 @@ package com.my.salty_date.controller;
 import com.my.salty_date.dto.MemberRequest;
 import com.my.salty_date.entity.Member;
 import com.my.salty_date.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +35,12 @@ public class MemberController {
     public String loginMember(){
         return "/member/memberLoginForm";
     }
+
+//    @PostMapping("/login")
+//    public String login(MemberRequest memberRequest) {
+//        memberService.login(memberRequest);
+//        return "redirect:/";
+//    }
 
     @GetMapping("/signUp")
     public String memberForm(Model model){
@@ -72,6 +78,7 @@ public class MemberController {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/members/login";
     }
+
 
 }
 

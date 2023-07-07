@@ -7,7 +7,7 @@ import com.my.salty_date.entity.File;
 import com.my.salty_date.repository.DatingRepository;
 import com.my.salty_date.repository.FileRepository;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

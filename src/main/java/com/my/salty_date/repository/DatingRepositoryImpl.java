@@ -4,8 +4,8 @@ import com.my.salty_date.entity.Dating;
 import com.my.salty_date.entity.QDating;
 import com.my.salty_date.entity.QFile;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.my.salty_date.entity;
 
 import com.my.salty_date.constant.Role;
 import com.my.salty_date.dto.MemberRequest;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

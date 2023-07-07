@@ -1,7 +1,7 @@
 package com.my.salty_date.entity;
 
 import com.my.salty_date.constant.DatingStatus;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
