@@ -10,8 +10,8 @@ import org.hibernate.validator.constraints.Length;
 @Getter @Setter
 public class MemberRequest {
 
-    @NotBlank(message = "이름을 입력해주세요")
-    private String name;
+//    @NotBlank(message = "이름을 입력해주세요")
+//    private String name;
 
     @NotEmpty(message = "이메일을 입력해주세요")
     private String email;
@@ -21,8 +21,7 @@ public class MemberRequest {
     private String password;
 
     @Builder
-    public MemberRequest(String name, String email, String password){
-        this.name = name;
+    public MemberRequest(String email, String password){
         this.email = email;
         this.password = password;
     }

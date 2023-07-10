@@ -1,17 +1,16 @@
-package com.my.salty_date.repository;
+package com.my.salty_date.entity;
 
-import com.my.salty_date.entity.Dating;
-import com.my.salty_date.entity.QDating;
-import com.my.salty_date.entity.QFile;
+import com.my.salty_date.repository.DatingRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-
-public class DatingRepositoryImpl implements DatingRepositoryCustom{
+@Repository
+public class DatingRepositoryImpl implements DatingRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
     private final QDating qDating = QDating.dating;

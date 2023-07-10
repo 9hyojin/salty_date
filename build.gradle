@@ -78,10 +78,7 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
-//    implementation 'com.querydsl:querydsl-jpa:5.0.0'
-//    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
-//    annotationProcessor 'javax.annotation:javax.annotation-api'
-//    annotationProcessor 'javax.persistence:javax.persistence-api'
+
 }
 
 tasks.named('test') {
@@ -110,6 +107,12 @@ configurations {
 }
 //querydsl 추가 끝
 
+
+
+//    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+//    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
+//    annotationProcessor 'javax.annotation:javax.annotation-api'
+//    annotationProcessor 'javax.persistence:javax.persistence-api'
 
 
 

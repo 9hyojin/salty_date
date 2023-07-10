@@ -6,6 +6,7 @@ import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
 import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,7 @@ public class DatingController {
         return "redirect:/";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/dating/{datingIdx}")
     public String findById(@PathVariable Long datingIdx, Model model) {
         Dating dating = datingService.findById(datingIdx);

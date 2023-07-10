@@ -11,10 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-@Setter
+@Getter @Setter
+@Builder
 @Entity
 public class Member implements UserDetails{
 
@@ -44,6 +46,12 @@ public class Member implements UserDetails{
         this.role = Role.USER;
 
     }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "mem_idx", foreignKey = @ForeignKey(name="mem_idx"))
+    private Set<MemberAuthority> authorities;
+
+    private boolean enabled;
 
 
     @Override //권한반환

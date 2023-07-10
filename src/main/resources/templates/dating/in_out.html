@@ -6,7 +6,7 @@
 	<div th:each="item : ${datingList}" class="card-frame">
 		<div class="card">
 			<div class="card-body" style="text-align: center; padding-bottom: 10px;">
-				<div style="font-size: small; padding-bottom: 5px; font-family: Yoon; text-align: right" th:text="*{#temporals.format(item.datingCreatedTime, 'yyyy-MM-dd')}"></div>
+				<div style="font-size: small; padding-bottom: 5px; font-family: Yoon; text-align: right" th:text="*{#temporals.format(item.createdTime, 'yyyy-MM-dd')}"></div>
 				<img class="card-img-top" style="width: 250px; height: 200px;" th:src="@{|/Users/koo/springboot_img/${item.storedFileName[0]}|}"/><br>
 				<a class="card-title" style="font-family: Yoon; font-size: x-large; text-decoration: none;" th:href="@{|/dating/${item.datingIdx}|}" th:text="${item.datingTitle}"></a>
 				<!--						<div th:text="${board.boardHits}"></div>-->

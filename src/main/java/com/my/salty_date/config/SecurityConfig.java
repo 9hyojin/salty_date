@@ -2,7 +2,8 @@ package com.my.salty_date.config;
 
 
 
-import com.my.salty_date.config.jwt.TokenProvider;
+import com.my.salty_date.config.jwt.JwtUtil;
+//import com.my.salty_date.config.jwt.TokenProvider;
 import com.my.salty_date.service.MemberService;
 import com.my.salty_date.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,43 +33,41 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity    //(debug = true)
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final MemberService memberService;
     private final UserDetailService userDetailService;
     private final DataSource dataSource;
-    private final TokenProvider tokenProvider;
-    private final Bcrypt bcrypt;
+    private final JwtUtil jwtUtil;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
-                                                       UserDetailService userDetailService) throws Exception {
-
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailService)
-                .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .build();
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
+//                                                       UserDetailService userDetailService) throws Exception {
+//
+//        return http.getSharedObject(AuthenticationManagerBuilder.class)
+//                .userDetailsService(userDetailService)
+//                .passwordEncoder(bCryptPasswordEncoder)
+//                .and()
+//                .build();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        JwtLoginFilter loginFilter = new JwtLoginFilter(authentication -> authentication);
-//        JwtCheckFilter checkFilter = new JwtCheckFilter(authentication -> authentication, memberService);
+        JwtLoginFilter loginFilter = new JwtLoginFilter(authentication -> authentication);
+        JwtCheckFilter checkFilter = new JwtCheckFilter(authentication -> authentication,memberService);
 
 
         return http
 
                 .csrf().disable()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAt(checkFilter, BasicAuthenticationFilter.class)
-
-//                .addFilterBefore(new TokenAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(checkFilter, BasicAuthenticationFilter.class)
 
                 .authorizeHttpRequests()
                 .antMatchers("/dating/**").authenticated()
@@ -76,18 +76,18 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
                 .and()
 
-                .formLogin()
-                .loginPage("/members/login").permitAll()
-                .defaultSuccessUrl("/", false)
-                .usernameParameter("email")
-                .failureUrl("/members/login/error")
-                .and()
-
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .and()
+//                .formLogin()
+//                .loginPage("/members/login").permitAll()
+//                .defaultSuccessUrl("/", false)
+//                .usernameParameter("email")
+//                .failureUrl("/members/login/error")
+//                .and()
+//
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+//                .logoutSuccessUrl("/")
+//                .invalidateHttpSession(true)
+//                .and()
 
                 .build();
     }

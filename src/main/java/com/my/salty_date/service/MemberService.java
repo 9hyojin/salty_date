@@ -1,13 +1,16 @@
 package com.my.salty_date.service;
 
-import com.my.salty_date.config.Bcrypt;
-import com.my.salty_date.config.jwt.TokenProvider;
+import com.my.salty_date.config.jwt.JwtUtil;
+//import com.my.salty_date.config.jwt.TokenProvider;
 import com.my.salty_date.dto.MemberRequest;
 import com.my.salty_date.entity.Member;
+import com.my.salty_date.entity.MemberAuthority;
 import com.my.salty_date.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 
 
 @RequiredArgsConstructor
@@ -15,14 +18,14 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final TokenProvider tokenProvider;
+    private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Long save(MemberRequest request) {
         return memberRepository.save(Member.builder()
                 .email(request.getEmail())
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
-                .name(request.getName())
+//                .name(request.getName())
                 .build()).getMemIdx();
     }
 
@@ -31,6 +34,8 @@ public class MemberService {
         return memberRepository.findById(memIdx)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
+
+
 }
 
 

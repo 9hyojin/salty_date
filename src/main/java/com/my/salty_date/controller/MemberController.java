@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,7 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 @RequestMapping("/members")
 @RequiredArgsConstructor
@@ -36,11 +43,11 @@ public class MemberController {
         return "/member/memberLoginForm";
     }
 
-//    @PostMapping("/login")
-//    public String login(MemberRequest memberRequest) {
-//        memberService.login(memberRequest);
-//        return "redirect:/";
-//    }
+    @PostMapping("/loginForm")
+    public String login(MemberRequest memberRequest) {
+//        MemberRequest.builder().email(memberRequest.getEmail()).password(memberRequest.getPassword()).build();
+        return "redirect:/";
+    }
 
     @GetMapping("/signUp")
     public String memberForm(Model model){
