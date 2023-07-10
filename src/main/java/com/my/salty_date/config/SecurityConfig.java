@@ -39,7 +39,7 @@ public class SecurityConfig {
     private final UserDetailService userDetailService;
     private final DataSource dataSource;
     private final TokenProvider tokenProvider;
-//    private final Bcrypt bcrypt;
+    private final Bcrypt bcrypt;
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
@@ -106,10 +106,7 @@ public class SecurityConfig {
         return roleHierarchy;
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 
 }
