@@ -33,6 +33,7 @@ public class DatingRepositoryImpl implements DatingRepositoryCustom{
 
     @Override
     public List<Dating> findAllWithFiles() {
+        assert queryFactory != null;
         return queryFactory
                 .selectFrom(qDating)
                 .leftJoin(qDating.fileList, qFile).fetchJoin()

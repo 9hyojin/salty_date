@@ -42,7 +42,7 @@ class TokenProviderTest {
 
         //given
         Member testMember = memberRepository.save(Member.builder()
-                        .email("member@email.com")
+                        .email("qwe@email.com")
                         .password("test123123")
                         .name("구구")
                         .build());

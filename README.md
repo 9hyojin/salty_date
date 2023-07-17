@@ -8,11 +8,9 @@ a website that offers free dating spots
 
 # 개발환경 💻
 
-Java 17
+Java 11
 
-JDK 1.8.0
-
-Framework : SpringBoot 3.0.6
+Framework : SpringBoot 2.7.10
 
 IDE : IntelliJ
 

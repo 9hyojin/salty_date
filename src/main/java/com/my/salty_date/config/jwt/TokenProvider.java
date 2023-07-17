@@ -8,7 +8,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,14 +26,16 @@ public class TokenProvider {
     private final JwtProperties jwtProperties;
 
     public String generateToken(Member member, Duration expiredAt){
+
         Date now = new Date();
         return makeToken(new Date(now.getTime() + expiredAt.toMillis()), member);
     }
 
     //JWT 생성 메서드
-    private String makeToken(Date expiry, Member member ) {
+    private String makeToken(Date expiry,Member member) {
         Date now = new Date();
         Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
+
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
@@ -73,6 +74,7 @@ public class TokenProvider {
     //토큰기반 유저ID 가져오는 메서드
     public Long getUserId(String token){
         Claims claims = getClaims(token);
+
         return claims.get("memIdx", Long.class);
     }
 
