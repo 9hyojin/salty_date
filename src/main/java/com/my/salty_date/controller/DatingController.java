@@ -4,23 +4,23 @@ import com.my.salty_date.dto.*;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
+import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
 public class DatingController {
 
     private final DatingService datingService;
-
     private final CommentService commentService;
+    private final PaginationService paginationService;
 
 
     @GetMapping("/")
@@ -28,10 +28,23 @@ public class DatingController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "index";
     }
+
+
+
+
+//    @GetMapping("/")
+//    public String findAll(Model model) {
+//        List<DatingResponse> datingList = datingService.findAll()
+//                .stream()
+//                .map(DatingResponse::new)
+//                .toList();
+//        model.addAttribute("datingList", datingList);
+//        return "index";
+//    }
 
     @GetMapping("/save/dating")
     public String saveDating() {
@@ -60,7 +73,7 @@ public class DatingController {
         return "redirect:/" + datingIdx;
     }
 
-    @DeleteMapping("/admin/dating/{datingIdx}")
+    @GetMapping("/delete/{datingIdx}")
     public String delete(@PathVariable Long datingIdx) {
         datingService.delete(datingIdx);
         return "redirect:/";
@@ -140,4 +153,3 @@ public class DatingController {
 //        datingService.delete(datingIdx);
 //        return "redirect:/";
 //    }
-

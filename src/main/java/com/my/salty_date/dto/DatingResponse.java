@@ -1,5 +1,6 @@
 package com.my.salty_date.dto;
 
+import com.my.salty_date.entity.BaseEntity;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.entity.File;
 import lombok.Getter;
@@ -9,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class DatingResponse {
+public class DatingResponse extends BaseEntity{
 
     private final Long datingIdx;
     private final String datingTitle;
     private final String datingAddress;
     private final String datingContent;
-    private final LocalDateTime datingCreatedTime;
-    private final LocalDateTime datingUpdatedTime;
+    private final LocalDateTime createdTime;
+    private final LocalDateTime updatedTime;
 
     private final List<File> file;
 
@@ -29,8 +30,8 @@ public class DatingResponse {
         this.datingTitle = dating.getDatingTitle();
         this.datingAddress = dating.getDatingAddress();
         this.datingContent = dating.getDatingContent();
-        this.datingCreatedTime = dating.getDatingCreatedTime();
-        this.datingUpdatedTime = dating.getDatingUpdatedTime();
+        this.createdTime = dating.getCreatedTime();
+        this.updatedTime = dating.getUpdatedTime();
         this.file = dating.getFileList();
         List<String> orginalFileNameList = new ArrayList<>();
         List<String> storedFileNameList = new ArrayList<>();
@@ -43,7 +44,7 @@ public class DatingResponse {
     }
 }
 
-    //entity -> dto
+//entity -> dto
 //    public static DatingDto toDatingDto (Dating dating){
 //        DatingDto datingDto = new DatingDto();
 //        datingDto.setDatingIdx(dating.getDatingIdx());

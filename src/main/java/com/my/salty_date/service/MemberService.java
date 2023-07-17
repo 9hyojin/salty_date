@@ -3,7 +3,7 @@ package com.my.salty_date.service;
 import com.my.salty_date.dto.MemberRequest;
 import com.my.salty_date.entity.Member;
 import com.my.salty_date.repository.MemberRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

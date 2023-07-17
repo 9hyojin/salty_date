@@ -1,29 +1,21 @@
 package com.my.salty_date.entity;
 
 import com.my.salty_date.constant.DatingStatus;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.stereotype.Controller;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Dating {
+public class Dating extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long datingIdx;
 
-//    @Column
-//    private String datingWriter;
 
     @Column
     private String datingTitle;
@@ -39,21 +31,15 @@ public class Dating {
     @Enumerated(EnumType.STRING)
     private DatingStatus datingStatus;
 
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime datingCreatedTime;
-
-    @LastModifiedDate
-    @Column(name = "update_at")
-    private LocalDateTime datingUpdatedTime;
 
 
     @Builder
-    public Dating(String datingTitle, String datingAddress, String datingContent, LocalDateTime datingCreatedTime) {
+    public Dating(String datingTitle, String datingAddress, String datingContent, LocalDateTime createdTime) {
         this.datingTitle = datingTitle;
         this.datingAddress = datingAddress;
         this.datingContent = datingContent;
-        this.datingCreatedTime = datingCreatedTime;
+        this.createdTime = createdTime;
+
     }
 
 
@@ -97,4 +83,3 @@ public class Dating {
 //        dating.setDatingContent(datingDto.getDatingContent());
 //        return dating;
 //    }
-

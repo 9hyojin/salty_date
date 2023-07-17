@@ -1,7 +1,7 @@
 package com.my.salty_date.entity;
 
 import com.my.salty_date.dto.CommentDto;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class   HomeController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "/dating/region";
     }
@@ -32,7 +33,7 @@ public class   HomeController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "/dating/season";
     }
@@ -42,7 +43,7 @@ public class   HomeController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "/dating/in_out";
     }
@@ -52,7 +53,7 @@ public class   HomeController {
         List<DatingResponse> datingList = datingService.findAll()
                 .stream()
                 .map(DatingResponse::new)
-                .toList();
+                .collect(Collectors.toList());
         model.addAttribute("datingList", datingList);
         return "/dating/age";
     }

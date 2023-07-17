@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,21 +30,21 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity      //(debug = true)
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final MemberService memberService;
     private final UserDetailService userDetailService;
-    private final CustomAuthDetails customAuthDetails;
+//    private final CustomAuthDetails customAuthDetails;
     private final DataSource dataSource;
 
 
 //    @Bean
 //    public WebSecurityCustomizer configure() {
 //        return (web) -> web.ignoring()
-//                .requestMatchers("/css/**","/js/**","/img/**","/fonts/**");
+//                .antMatchers("/css/**","/js/**","/img/**","/fonts/**");
 //    }
 
 
@@ -54,33 +55,33 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    PersistentTokenRepository tokenRepository(){
-        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
-        repository.setDataSource(dataSource);
-        try {
-            repository.removeUserTokens("1");
-        }catch (Exception e){
-            repository.setCreateTableOnStartup(true);
-        }
-        return repository;
-    }
+//    @Bean
+//    PersistentTokenRepository tokenRepository(){
+//        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
+//        repository.setDataSource(dataSource);
+//        try {
+//            repository.removeUserTokens("1");
+//        }catch (Exception e){
+//            repository.setCreateTableOnStartup(true);
+//        }
+//        return repository;
+//    }
 
-    @Bean
-    PersistentTokenBasedRememberMeServices rememberMeServices(){
-        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices(
-                "hello",userDetailService,tokenRepository());
-        service.setAlwaysRemember(true);  //테스트시 로그인기억하기 매번 누르기 번거로울때 사용
-        return service;
-    }
+//    @Bean
+//    PersistentTokenBasedRememberMeServices rememberMeServices(){
+//        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices(
+//                "hello",userDetailService,tokenRepository());
+////        service.setAlwaysRemember(true);  //테스트시 로그인기억하기 매번 누르기 번거로울때 사용
+//        return service;
+//    }
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-                .requestMatchers("/dating/**").authenticated()
-                .requestMatchers("/admin/**","/session/**","/sessions/**").hasRole("ADMIN")
+                .antMatchers("/dating/**").authenticated()
+                .antMatchers("/admin/**","/session/**","/sessions/**").hasRole("ADMIN")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 //                .requestMatchers("/css/**","/js/**","/img/**","/fonts/**").permitAll()
                 .anyRequest().permitAll()
@@ -91,7 +92,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", false)
                 .usernameParameter("email")
                 .failureUrl("/members/login/error")
-                .authenticationDetailsSource(customAuthDetails)
+//                .authenticationDetailsSource(customAuthDetails)
                 .and()
 
                 .logout()
@@ -100,10 +101,10 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .and()
 
-                .rememberMe(
-                        r->r
-                                .rememberMeServices(rememberMeServices())
-                )
+//                .rememberMe(
+//                        r->r
+//                                .rememberMeServices(rememberMeServices())
+//                )
 
                 .sessionManagement(
                         s->s
