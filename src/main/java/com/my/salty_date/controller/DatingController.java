@@ -4,7 +4,6 @@ import com.my.salty_date.dto.*;
 import com.my.salty_date.entity.Dating;
 import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
-import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
