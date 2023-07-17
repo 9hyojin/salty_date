@@ -64,22 +64,3 @@ public class Dating extends BaseEntity{
 
 
 
-
-////        dto -> entity
-//    public static Dating toSaveDating(DatingDto datingDto){
-//        Dating dating = new Dating();
-////        dating.setDatingWriter(datingDto.getDatingWriter());
-//        dating.setDatingTitle(datingDto.getDatingTitle());
-//        dating.setDatingAddress(datingDto.getDatingAddress());
-//        dating.setDatingContent(datingDto.getDatingContent());
-//        return dating;
-//    }
-
-//    public static Dating toUpdateDating(DatingDto datingDto) {
-//        Dating dating = new Dating();
-////        dating.setDatingWriter(datingDto.getDatingWriter());
-//        dating.setDatingTitle(datingDto.getDatingTitle());
-//        dating.setDatingAddress(datingDto.getDatingAddress());
-//        dating.setDatingContent(datingDto.getDatingContent());
-//        return dating;
-//    }

@@ -26,7 +26,6 @@ public class TokenProvider {
     private final JwtProperties jwtProperties;
 
     public String generateToken(Member member, Duration expiredAt){
-
         Date now = new Date();
         return makeToken(new Date(now.getTime() + expiredAt.toMillis()), member);
     }
@@ -50,7 +49,6 @@ public class TokenProvider {
     //JWT 유효성 검증 메서드
     public boolean validToken(String token){
         Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
-
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)   //비밀값으로 복호화
@@ -74,13 +72,11 @@ public class TokenProvider {
     //토큰기반 유저ID 가져오는 메서드
     public Long getUserId(String token){
         Claims claims = getClaims(token);
-
         return claims.get("memIdx", Long.class);
     }
 
     private Claims getClaims(String token) {
         Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
-
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

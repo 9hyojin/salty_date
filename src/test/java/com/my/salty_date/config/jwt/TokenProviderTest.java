@@ -3,7 +3,6 @@ package com.my.salty_date.config.jwt;
 import com.my.salty_date.entity.Member;
 import com.my.salty_date.repository.MemberRepository;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,17 +17,14 @@ import java.util.Date;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TokenProviderTest {
 
     @Autowired
     private TokenProvider tokenProvider;
-
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -39,12 +35,11 @@ class TokenProviderTest {
     void generateToken(){
         Key key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
 
-
         //given
         Member testMember = memberRepository.save(Member.builder()
-                        .email("qwe@email.com")
-                        .password("test123123")
-                        .name("구구")
+                        .email("123123qweqwe@test.com")
+                        .password("testqweqwe123123123")
+                        .name("구구구qweqwe")
                         .build());
         //when
         String token = tokenProvider.generateToken(testMember, Duration.ofDays(14));

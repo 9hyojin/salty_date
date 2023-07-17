@@ -1,7 +1,6 @@
 package com.my.salty_date.controller;
 
 import com.my.salty_date.dto.MemberRequest;
-import com.my.salty_date.entity.Member;
 import com.my.salty_date.service.MemberService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +35,7 @@ public class MemberController {
         return "/member/memberLoginForm";
     }
 
-//    @PostMapping("/login")
-//    public String login(MemberRequest memberRequest) {
-//        memberService.login(memberRequest);
-//        return "redirect:/";
-//    }
+
 
     @GetMapping("/signUp")
     public String memberForm(Model model){
@@ -62,10 +57,7 @@ public class MemberController {
         return "redirect:/members/login";
     }
 
-//    @GetMapping("/signUp/{email}/exists")
-//    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email){
-//        return ResponseEntity.ok(memberService.checkEmailDuplication(email));
-//    }
+
 
     @GetMapping("/login/error")
     public String loginError(Model model){
@@ -76,44 +68,10 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/members/login";
+        return "redirect:/";
     }
 
 
 }
 
 
-//    @GetMapping("/new")
-//    public String memberForm(Model model){
-//        model.addAttribute("memberFormDto",new MemberFormDto());
-//        return "member/memberForm";
-//    }
-//
-//    @PostMapping("/new")
-//    public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
-//        if(bindingResult.hasErrors()){
-//            return "member/memberForm";
-//        }
-//        try {
-//            Member member = Member.createMember(memberFormDto,passwordEncoder);
-//            memberService.saveMember(member);
-//        }catch (IllegalStateException e){
-//            model.addAttribute("errorMessage", e.getMessage());
-//            return "member/memberForm";
-//        }
-//
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("/login")
-//    public String loginMember(){
-//        return "/member/memberLoginForm";
-//    }
-//
-//
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(Member member){
-//        return ResponseEntity.ok().body(memberService.login(member,""));
-//    }
-//
-//}

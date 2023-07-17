@@ -1,20 +1,17 @@
 package com.my.salty_date.entity;
 
 import com.my.salty_date.constant.Role;
-import com.my.salty_date.dto.MemberRequest;
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Entity
 public class Member implements UserDetails{
 
@@ -37,7 +34,7 @@ public class Member implements UserDetails{
 
 
     @Builder
-    public Member(String email, String password,String name){
+    public Member(String email, String password,String name, String auth){
         this.email = email;
         this.password = password;
         this.name = name;

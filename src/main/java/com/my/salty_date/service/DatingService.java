@@ -69,37 +69,3 @@ public class DatingService {
 
 
 }
-
-
-
-
-
-
-//    @Transactional
-//    public List<DatingDto> findAll(){
-//        List<Dating> datingList = datingRepository.findAll();
-//        List<DatingDto> datingDtoList = new ArrayList<>();
-//        for (Dating dating : datingList){
-//            datingDtoList.add(DatingDto.toDatingDto(dating));
-//        }
-//        return datingDtoList;
-//    }
-
-
-//    @Transactional
-//    public DatingDto findById(Long datingIdx) {
-//        Optional<Dating> optionalDating = datingRepository.findById(datingIdx);
-//        if (optionalDating.isPresent()) {
-//            Dating dating = optionalDating.get();
-//            DatingDto datingDto = DatingDto.toDatingDto(dating);
-//            return datingDto;
-//        } else {
-//            return null;
-//        }
-//    }
-
-//    public DatingDto update(DatingDto datingDto) {
-//        Dating dating = Dating.toUpdateDating(datingDto);
-//        datingRepository.save(dating);
-//        return findById(datingDto.getDatingIdx());
-//    }

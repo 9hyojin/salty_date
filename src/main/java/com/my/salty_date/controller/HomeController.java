@@ -66,12 +66,3 @@ public class   HomeController {
 
 }
 
-
-
-
-//    @GetMapping("/share")
-//    public String share(Model model){
-//        List<DatingDto> datingDtoList = datingService.findAll();
-//        model.addAttribute("datingList", datingDtoList);
-//        return "saveDating";
-//    }

@@ -43,30 +43,3 @@ public class DatingResponse extends BaseEntity{
         this.storedFileName = storedFileNameList;
     }
 }
-
-//entity -> dto
-//    public static DatingDto toDatingDto (Dating dating){
-//        DatingDto datingDto = new DatingDto();
-//        datingDto.setDatingIdx(dating.getDatingIdx());
-////        datingDto.setDatingWriter(dating.getDatingWriter());
-//        datingDto.setDatingTitle(dating.getDatingTitle());
-//        datingDto.setDatingAddress(dating.getDatingAddress());
-//        datingDto.setDatingContent(dating.getDatingContent());
-//        datingDto.setDatingCreatedTime(dating.getCreatedTime());
-//        datingDto.setDatingUpdatedTime(dating.getUpdatedTime());
-//
-//        // 파일 이름을 가져가야 함.
-//        // orginalFileName, storedFileName : board_file_table(BoardFileEntity)
-//        // join
-//        // select * from board_table b, board_file_table bf where b.id=bf.board_id
-//        // and where b.id=?
-//        List<String>orginalFileNameList = new ArrayList<>();
-//        List<String>storedFileNameList = new ArrayList<>();
-//        for(File file : dating.getFileList()){
-//            orginalFileNameList.add(file.getOriginalFileName());
-//            storedFileNameList.add(file.getStoredFileName());
-//        }
-//        datingDto.setOriginalFileName(orginalFileNameList);
-//        datingDto.setStoredFileName(storedFileNameList);
-//        return  datingDto;
-//    }
