@@ -27,7 +27,6 @@
             <!-- 댓글 작성 부분 -->
 
             <div id="comment-write" style="padding-top: 1%; font-family: Yoon;">
-                <input type="text" style="font-size: large; padding-bottom: 1%" id="commentWriter" placeholder="작성자">
                 <input type="text" style="width: 60%; font-size: large; padding-bottom: 1%" id="commentContent" placeholder="내용">
                 <button id="comment-write-btn"style="font-size: medium" onclick="commentWrite()">댓글작성</button>
             </div>
@@ -70,7 +69,7 @@
             $.ajax({
                 // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
                 type: "post",
-                url: "/comment/save",
+                url: "/save/comment",
                 data: {
                     "commentWriter": writer,
                     "commentContent": content,

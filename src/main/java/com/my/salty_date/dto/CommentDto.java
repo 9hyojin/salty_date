@@ -1,6 +1,7 @@
 package com.my.salty_date.dto;
 
 
+import com.my.salty_date.entity.BaseEntity;
 import com.my.salty_date.entity.Comment;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class CommentDto {
+public class CommentDto extends BaseEntity {
     private Long commentIdx;
     private String commentWriter;
     private String commentContent;
