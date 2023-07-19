@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,15 +33,26 @@ public class Member implements UserDetails{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     @Builder
     public Member(String email, String password,String name, String auth){
         this.email = email;
         this.password = password;
         this.name = name;
         this.role = Role.USER;
-
     }
+
+
+//    @OneToMany(mappedBy = "member")
+//    private List<Comment> comments = new ArrayList<>();
+//
+//    public void addComment(Comment comment){
+//        this.comments.add(comment);
+//        if(comment.getMember() != this){
+//            comment.setMember(this);
+//        }
+//    }
+
+
 
 
     @Override //권한반환

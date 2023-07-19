@@ -2,7 +2,7 @@ package com.my.salty_date.controller;
 
 import com.my.salty_date.dto.*;
 import com.my.salty_date.entity.Dating;
-import com.my.salty_date.service.CommentService;
+//import com.my.salty_date.service.CommentService;
 import com.my.salty_date.service.DatingService;
 import com.my.salty_date.service.PaginationService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class DatingController {
 
     private final DatingService datingService;
-    private final CommentService commentService;
+//    private final CommentService commentService;
     private final PaginationService paginationService;
 
 
@@ -48,9 +48,9 @@ public class DatingController {
     @GetMapping("/dating/{datingIdx}")
     public String findById(@PathVariable Long datingIdx, Model model) {
         Dating dating = datingService.findById(datingIdx);
-        List<CommentDto> commentDtoList = commentService.findAll(datingIdx);
+//        List<CommentDto> commentDtoList = commentService.findAll(datingIdx);
         model.addAttribute("dating", new DatingResponse(dating));
-        model.addAttribute("commentList", commentDtoList);
+//        model.addAttribute("commentList", commentDtoList);
         return "detailPage";
     }
 

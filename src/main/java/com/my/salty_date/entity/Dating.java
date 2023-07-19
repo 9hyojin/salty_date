@@ -47,8 +47,8 @@ public class Dating extends BaseEntity{
     @OneToMany(mappedBy = "dating", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<File> fileList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "dating", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Comment> commentList = new ArrayList<>();
+//    @OneToMany(mappedBy = "dating", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Comment> commentList = new ArrayList<>();
 
 
     public void update(String datingTitle, String datingContent, String datingAddress) {

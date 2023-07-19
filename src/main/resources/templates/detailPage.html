@@ -24,30 +24,31 @@
     </div>
     <div style="padding-top: 3%">
         <div class="comment" style="border: solid; padding: 2%">
-            <!-- 댓글 작성 부분 -->
 
-            <div id="comment-write" style="padding-top: 1%; font-family: Yoon;">
-                <input type="text" style="width: 60%; font-size: large; padding-bottom: 1%" id="commentContent" placeholder="내용">
-                <button id="comment-write-btn"style="font-size: medium" onclick="commentWrite()">댓글작성</button>
-            </div>
+<!--            &lt;!&ndash; 댓글 작성 부분 &ndash;&gt;-->
 
-            <!-- 댓글 출력 부분 -->
-            <div id="comment-list" style="padding-top: 1%; font-family: Yoon; font-size: large">
-                <table>
-                    <tr>
-                        <th>댓글번호</th>
-                        <th>작성자</th>
-                        <th>내용</th>
-                        <th>작성시간</th>
-                    </tr>
-                    <tr th:each="comment: ${commentList}">
-                        <td th:text="${comment.commentIdx}"></td>
-                        <td th:text="${comment.commentWriter}"></td>
-                        <td th:text="${comment.commentContent}"></td>
-                        <td th:text="*{#temporals.format(comment.commentCreatedTime, 'yyyy-MM-dd')}"></td>
-                    </tr>
-                </table>
-            </div>
+<!--            <div id="comment-write" style="padding-top: 1%; font-family: Yoon;">-->
+<!--                <input type="text" style="width: 60%; font-size: large; padding-bottom: 1%" id="commentContent" placeholder="내용">-->
+<!--                <button id="comment-write-btn"style="font-size: medium" onclick="commentWrite()">댓글작성</button>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; 댓글 출력 부분 &ndash;&gt;-->
+<!--            <div id="comment-list" style="padding-top: 1%; font-family: Yoon; font-size: large">-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <th>댓글번호</th>-->
+<!--                        <th>작성자</th>-->
+<!--                        <th>내용</th>-->
+<!--                        <th>작성시간</th>-->
+<!--                    </tr>-->
+<!--                    <tr th:each="comment: ${commentList}">-->
+<!--                        <td th:text="${comment.commentIdx}"></td>-->
+<!--                        <td th:text="${comment.}"></td>-->
+<!--                        <td th:text="${comment.commentContent}"></td>-->
+<!--                        <td th:text="*{#temporals.format(comment.commentCreatedTime, 'yyyy-MM-dd')}"></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </div>-->
         </div>
     </div>
 
@@ -61,17 +62,15 @@
 
     <script th:inline="javascript">
         const commentWrite = () => {
-            const writer = document.getElementById("commentWriter").value;
             const content = document.getElementById("commentContent").value;
-            console.log("작성자: ", writer);
             console.log("내용: ", content);
             const idx = [[${dating.datingIdx}]];
+
             $.ajax({
-                // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
                 type: "post",
                 url: "/save/comment",
                 data: {
-                    "commentWriter": writer,
+                    "commentWriter": mem,
                     "commentContent": content,
                     "datingIdx": idx
                 },
@@ -117,8 +116,6 @@
             location.href = "/delete/" + idx;
             alert("게시글 삭제 완료!");
         }
-
-
 
     </script>
 </div>
