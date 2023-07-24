@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/dating/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/swagger-resources/**").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .anyRequest().permitAll()
                 .and()

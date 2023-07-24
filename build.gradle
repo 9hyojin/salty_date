@@ -62,20 +62,20 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 //  compileOnly 'org.springframework.boot:spring-boot-devtools'
 
-
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
     testImplementation 'org.springframework.security:spring-security-test'
-
 
     //querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
-//    implementation 'com.querydsl:querydsl-jpa:5.0.0'
-//    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
-//    annotationProcessor 'javax.annotation:javax.annotation-api'
-//    annotationProcessor 'javax.persistence:javax.persistence-api'
+//    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+//    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
 }
 
 tasks.named('test') {
